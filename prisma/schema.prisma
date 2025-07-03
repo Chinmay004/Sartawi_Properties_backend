@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Listing {
+  id            String       @id @default(uuid())
+  title         String
+  location      String
+  latitude      Float?
+  longitude     Float?
+  description   String
+  type          PropertyType
+  bedrooms      Int
+  bathrooms     Int
+  price         Float
+  area          Float // in sq. ft
+  floors        Int
+  developerName String
+  security      Boolean
+  amenities     String[] // e.g. ["Childrens Play Area", "Swimming Pool"]
+  images        String[] // store image URLs or paths
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+enum PropertyType {
+  Villa
+  Apartment
+  Studio
+  Penthouse
+}
