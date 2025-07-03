@@ -1,4 +1,4 @@
-# UrbanTap Backend
+# Sartwai Backend
 
 ## Setup
 
