@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 // ✅ Enable CORS (Allow requests from frontend)
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://frontend-srtvi.vercel.app"],
   credentials: true,
 }));
 
