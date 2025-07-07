@@ -2,7 +2,8 @@ import { Request, Response,RequestHandler } from 'express';
 import {
   createListingService,
   getAllListingsService,
-  getListingByIdService
+  getListingByIdService,
+  getFilteredPropertiesService
 } from '../services/listing.service';
 import prisma from '../prisma/client';
 
@@ -49,5 +50,21 @@ export const getListingById: RequestHandler = async (req, res) => {
     res.status(200).json(listing);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch listing' });
+  }
+};
+
+export const getPropertiesController: RequestHandler = async (req, res) => {
+  try {
+    const filters = req.body;
+    const { records, totalCount } = await getFilteredPropertiesService(filters);
+    res.json({
+      records,
+      totalCount,
+      page: filters.page,
+      limit: filters.limit
+    });
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

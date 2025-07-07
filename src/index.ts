@@ -2,6 +2,9 @@ import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors'; // ✅ import cors
 import listingRoutes from "./routes/listing.route";
+import cron from "node-cron";
+import { refreshPixxiListings } from "./listings/fetchPixxi";
+import v1Router from './routes/v1.route';
 
 dotenv.config();
 
@@ -18,12 +21,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ✅ API routes
-app.use('/api', listingRoutes);
+app.use('/api/listing', listingRoutes);
+app.use('/api/v1', v1Router);
+
 
 // ✅ Default root route
 app.get('/', (_, res) => {
   res.status(200).send('Hello, TypeScript with Express!');
 });
+
+// refreshPixxiListings();
+
+// Schedule every hour
+cron.schedule('0 * * * *', refreshPixxiListings);
+
 
 // ✅ Start server
 app.listen(PORT, () => {
