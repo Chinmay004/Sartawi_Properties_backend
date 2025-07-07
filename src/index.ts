@@ -12,10 +12,8 @@ const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
 // ✅ Enable CORS (Allow requests from frontend)
-app.use(cors({
-  origin: ["http://localhost:3000", "https://frontend-srtvi.vercel.app"],
-  credentials: true,
-}));
+app.use(cors()); // Open to all origins
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
