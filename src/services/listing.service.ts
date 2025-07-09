@@ -23,6 +23,7 @@ export interface ListingsFilter {
   listingType?: string;
   status?: string;
   amenities?: string[];
+  marketType: 'secondary' | 'offPlan';
 }
 
 export const createListingService = async (data: Prisma.ListingCreateInput): Promise<Listing> => {
@@ -122,6 +123,15 @@ export async function getFilteredPropertiesService(
       )
     );
   }
+
+  if (filters.marketType) {
+  if (filters.marketType === 'secondary') {
+    filtered = filtered.filter(item => typeof item.propertyId === 'string' && item.propertyId.startsWith('SP'));
+  } else if (filters.marketType === 'offPlan') {
+    filtered = filtered.filter(item => /^\d+$/.test(item.propertyId));
+  }
+}
+
 
   const totalCount = filtered.length;
   const start = (page - 1) * limit;

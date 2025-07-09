@@ -9,7 +9,7 @@ import v1Router from './routes/v1.route';
 dotenv.config();
 
 const app: Application = express();
-const PORT = process.env.PORT || 3000;
+const PORT: number = parseInt(process.env.PORT || '3000', 10);
 
 // ✅ Enable CORS (Allow requests from frontend)
 app.use(cors()); // Open to all origins
@@ -35,6 +35,6 @@ cron.schedule('0 * * * *', refreshPixxiListings);
 
 
 // ✅ Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Server is running on http://0.0.0.0:${PORT}`);
 });
