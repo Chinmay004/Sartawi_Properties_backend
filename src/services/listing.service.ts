@@ -124,13 +124,23 @@ export async function getFilteredPropertiesService(
     );
   }
 
-  if (filters.marketType) {
-  if (filters.marketType === 'secondary') {
-    filtered = filtered.filter(item => typeof item.propertyId === 'string' && item.propertyId.startsWith('SP'));
-  } else if (filters.marketType === 'offPlan') {
-    filtered = filtered.filter(item => /^\d+$/.test(item.propertyId));
+//   if (filters.marketType) {
+//   if (filters.marketType === 'secondary') {
+//     filtered = filtered.filter(item => typeof item.propertyId === 'string' && item.propertyId.startsWith('SP'));
+//   } else if (filters.marketType === 'offPlan') {
+//     filtered = filtered.filter(item => /^\d+$/.test(item.propertyId));
+//   }
+// }
+
+ if (filters.marketType) {
+    if (filters.marketType === 'secondary') {
+      filtered = filtered.filter(item =>
+        item.description?.toLowerCase().includes('sart')
+      );
+    } else if (filters.marketType === 'offPlan') {
+      filtered = filtered.filter(item => /^\d+$/.test(item.propertyId));
+    }
   }
-}
 
 
   const totalCount = filtered.length;

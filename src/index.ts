@@ -32,6 +32,7 @@ app.get('/', (_, res) => {
 
 // Schedule every hour
 cron.schedule('0 * * * *', refreshPixxiListings);
+// cron.schedule('* * * * *', refreshPixxiListings);
 
 
 // ✅ Start server
